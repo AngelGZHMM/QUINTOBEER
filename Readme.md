@@ -1,4 +1,4 @@
-# QUINTOCARGO
+# QUINTOBEER
 Proyecto de Odoo grupal realizado en Odoo sobre una empresa de mudanzas
 
 # INSTALACIÓN
