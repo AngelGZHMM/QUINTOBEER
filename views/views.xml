@@ -1,0 +1,21 @@
+<odoo>
+  <data>
+    <!-- Top menu item -->
+    <menuitem name="quintobeer" id="quintobeer.menu_root"/>
+
+    <!-- menu categories -->
+    <menuitem name="Gestión" id="quintobeer.menu_gestion" parent="quintobeer.menu_root"/>
+    <menuitem name="Personal" id="quintobeer.menu_personal" parent="quintobeer.menu_root"/>
+    <menuitem name="Catalogo" id="quintobeer.catalogo" parent="quintobeer.menu_root"/>
+
+
+    <!-- actions -->
+    <menuitem name="Pedidos" id="quintobeer.menu_gestion_pedidos" parent="quintobeer.menu_gestion" action="act_pedido"/>
+    <menuitem name="Envios" id="quintobeer.menu_gestion_envios" parent="quintobeer.menu_gestion" action="act_envio"/>
+    <menuitem id="menu_cliente" parent="quintobeer.menu_personal" name="Cliente" action="action_cliente"/>
+    <menuitem id="menu_empleado" parent="quintobeer.menu_personal" name="Empleado" action="action_empleado"/>
+    <menuitem name="Cerveza" id="menu_cerveza" parent="quintobeer.catalogo" action="action_cerveza"/>
+    <menuitem name="Ingrediente" id="menu_ingrediente" parent="quintobeer.catalogo" action="action_ingrediente"/>
+
+  </data>
+</odoo>

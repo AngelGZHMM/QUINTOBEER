@@ -1,0 +1,101 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+    <!-- Vista Tree -->
+    <record id="view_ingrediente_tree" model="ir.ui.view">
+        <field name="name">quintobeer.ingrediente.tree</field>
+        <field name="model">quintobeer.ingrediente</field>
+        <field name="arch" type="xml">
+            <tree>
+                <field name="nombre"/>
+                <field name="tipo"/>
+                <field name="descripcion"/>
+            </tree>
+        </field>
+    </record>
+
+    <!-- Vista Form -->
+    <record id="view_ingrediente_form" model="ir.ui.view">
+        <field name="name">quintobeer.ingrediente.form</field>
+        <field name="model">quintobeer.ingrediente</field>
+        <field name="arch" type="xml">
+            <form string="Ingrediente">
+                <sheet>
+                    <group col="2">
+                        <group>
+                            <field name="nombre"/>
+                            <field name="descripcion"/>
+                        </group>
+                        <group>
+                            <field name="tipo"/>
+                            <field name="cerveza_ids" widget="many2many_tags"/>
+                        </group>
+                    </group>
+                    <group>
+                        <field name="foto" widget="image"/>
+                    </group>
+
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <!-- Vista Kanban -->
+    <record id="view_ingrediente_kanban" model="ir.ui.view">
+        <field name="name">quintobeer.ingrediente.kanban</field>
+        <field name="model">quintobeer.ingrediente</field>
+        <field name="arch" type="xml">
+            <kanban>
+                <templates>
+                    <t t-name="kanban-box">
+                        <div class="o_kanban_record oe_kanban_global_click o_quintobeer_ingrediente_kanban" t-attf-data-id="{{ record.id }}" style="min-height: 150px; padding: 10px;">
+                            <div class="oe_kanban_details">
+                                <div>
+                                    <strong>
+                                        <field name="nombre"/>
+                                    </strong>
+                                </div>
+                                <div>
+                                    <span>Tipo : <field name="tipo"/>
+                                    </span>
+                                </div>
+                                <div>
+                                    <span>
+                                        <field name="descripcion"/>
+                                    </span>
+                                </div>
+
+                            </div>
+                            <div class="o_kanban_image_fill_left d-none d-md-block">
+                                <field name="foto" widget="image" class="oe_kanban_image"/>
+                            </div>
+                        </div>
+                    </t>
+                </templates>
+            </kanban>
+        </field>
+    </record>
+
+
+    <record id="quintobeer_ingrediente_search_view" model="ir.ui.view">
+        <field name="name">quintobeer.ingrediente.search</field>
+        <field name="model">quintobeer.ingrediente</field>
+        <field name="arch" type="xml">
+            <search string="Buscar Ingrediente">
+                <field name="nombre"/>
+                <group expand="1" string="Agrupar por...">
+                    <filter string="Tipo" name="group_tipo" context="{'group_by':'tipo'}"/>
+
+                </group>
+            </search>
+        </field>
+    </record>
+
+    <!-- Acción para abrir la vista -->
+    <record id="action_ingrediente" model="ir.actions.act_window">
+        <field name="name">Ingredientes</field>
+        <field name="res_model">quintobeer.ingrediente</field>
+        <field name="view_mode">kanban,tree,form</field>
+    </record>
+
+
+</odoo>

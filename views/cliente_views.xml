@@ -1,0 +1,95 @@
+<!-- Sergio Gómez -->
+<odoo>
+<record id="action_cliente" model="ir.actions.act_window">
+        <field name="name">Cliente</field>
+        <field name="res_model">quintobeer.cliente</field>
+        <field name="view_mode">kanban,form,tree</field>
+        <field name="help" type="html">
+            <p>
+                Crea y gestiona los clientes de Quintobeer.
+            </p>
+        </field>
+    </record>
+
+    <record id="view_cliente_tree" model="ir.ui.view">
+        <field name="name">cliente.tree</field>
+        <field name="model">quintobeer.cliente</field>
+        <field name="arch" type="xml">
+            <tree>
+                <field name="name"/>
+                <field name="apellidos"/>
+                <field name="direccion_envio"/>
+                <field name="ccv"/>
+                <field name="caducidad_tarjeta"/>
+                <field name="num_tarjeta"/>
+            </tree>
+        </field>
+    </record>
+
+    <record id="view_cliente_kanban" model="ir.ui.view">
+        <field name="name">quintobeer.cliente.kanban</field>
+        <field name="model">quintobeer.cliente</field>
+        <field name="arch" type="xml">
+            <kanban>
+                <field name="foto"/>
+                <field name="name"/>
+                <field name="apellidos"/>
+                <field name="direccion"/>
+                <field name="telefono"/>
+                <field name="email"/>
+                <templates>
+                    <t t-name="kanban-box">
+                        <div class="o_kanban_record oe_kanban_global_click o_quintobeer_cliente_kanban" t-attf-data-id="{{ record.id }}" style="min-height: 150px; padding: 10px;">
+                            <div class="o_kanban_image_fill_left d-none d-md-block"><field name="foto" class="img img-fluid" widget="image"/>
+                            </div>
+                            <div class="o_kanban_details">
+                                <div>
+                                    <strong><field name="name"/></strong>
+                                </div>
+                                <div>
+                                    <span>apellidos: <field name="apellidos"/></span>
+                                </div>
+                                <div>
+                                    <span>dirección: <field name="direccion"/></span>
+                                </div>
+                                <div>
+                                    <span>telefono: <field name="telefono"/></span>
+                                </div>
+                                <div>
+                                    <span>email: <field name="email"/></span>
+                                </div>
+                            </div>
+                        </div>
+                    </t>
+                </templates>
+            </kanban>
+        </field>
+    </record>
+
+    <record id="view_cliente_form" model="ir.ui.view">
+    
+        <field name="name">cliente.form</field>
+        <field name="model">quintobeer.cliente</field>
+        <field name="arch" type="xml">
+            <form>
+                <sheet>
+                    <group>
+                        <field name="name"/>
+                        <field name="apellidos"/>
+                        <field name="email"/>
+                        <field name="telefono"/>
+                        <field name="direccion"/>
+                        <field name="fecha_nac"/>
+                        <field name="dni"/>
+                        <field name="direccion_envio"/>
+                        <field name="ccv"/>
+                        <field name="caducidad_tarjeta"/>
+                        <field name="num_tarjeta"/>
+                        <field name="pedidos_ids"/>
+                        <field name="foto" widget="image"/>
+                    </group>
+                </sheet>
+            </form>
+        </field>
+    </record>
+</odoo>

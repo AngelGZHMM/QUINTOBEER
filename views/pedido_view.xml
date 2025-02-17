@@ -1,0 +1,136 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Ángel Gallego Zayas -->
+<odoo>
+    <data>
+        <record model="ir.actions.act_window" id="act_pedido">
+            <field name="name">Pedidos</field>
+            <field name="res_model">quintobeer.pedido</field>
+            <field name="view_mode">tree,form,graph</field>
+        </record>
+
+        <!-- Vista lista (tree) -->
+        <record id="quintobeer_pedidos_tree_view" model="ir.ui.view">
+            <field name="name">quintobeer.pedido.tree</field>
+            <field name="model">quintobeer.pedido</field>
+            <field name="arch" type="xml">
+                <tree string="Pedidos" decoration-info="estado == 'enviado'" decoration-warning="estado == 'pendiente'" decoration-danger="estado == 'cancelado'" decoration-bf="estado == 'recibido'">
+                    <field name="idpedido" align="center" string="NUM Pedido" />
+                    <field name="estado" align="center" />
+                    <field name="fechapedido" align="center" widget="date" />
+                    <field name="preciototal" align="right" string="Precio Total"/>
+                    <field name="idenvio" align="center" />
+                    <field name="idcerveza" align="center"/>
+                    <field name="cliente_id" align="center"/>
+                    <field name="empleado_id" align="center"/>
+                </tree>
+            </field>
+        </record>
+
+        <!-- Vista formulario -->
+        <record id="quintobeer_pedido_form_view" model="ir.ui.view">
+            <field name="name">quintobeer.pedido.form</field>
+            <field name="model">quintobeer.pedido</field>
+            <field name="arch" type="xml">
+                <form string="Pedidos">
+                    <sheet layout="auto">
+                        <group>
+                            <field name="idpedido" />
+                            <field name="estado" readonly="1" />
+                            <footer>
+                                <button string="Enviar" type="object" name="action_enviar" attrs="{'invisible': [('estado', '!=', 'pendiente')]}" class="btn-primary"/>
+                                <button string="Recibir" type="object" name="action_recibir" attrs="{'invisible': [('estado', '!=', 'enviado')]}" class="btn-success"/>
+                                <button string="Cancelar" type="object" name="action_cancelar" attrs="{'invisible': [('estado', 'not in', ['pendiente', 'enviado'])]}" class="btn-danger"/>
+                                <button string="Reiniciar" type="object" name="action_reset" attrs="{'invisible': [('estado', '!=', 'cancelado')]}" class="btn-secondary"/>
+                            </footer>
+                        </group>
+                        <notebook>
+                            <page name="datos_necesario" string="Datos necesarios">
+                                <group>
+                                    <field name="fechapedido"/>
+                                    <field name="costo" align="right" string="Costo"/>
+                                    <field name="iva" align="right" string="IVA"/>
+                                    <field name="preciototal" align="right" string="Precio Total"/>
+
+                                </group>
+                            </page>
+                            <page name="datos_adicionales" string="Datos adicionales">
+                                <group>
+                                    <field name="idenvio" widget="many2one"/>
+                                    <field name="idcerveza" widget="many2many"/>
+                                    <field name="cliente_id" widget="many2one"/>
+                                    <field name="empleado_id" widget="many2one"/>
+                                </group>
+                            </page>
+                            
+                        </notebook>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+
+
+        <!-- Vista gráfico -->
+        <record id="quintobeer_pedido_graph_view" model="ir.ui.view">
+            <field name="name">quintobeer.pedido.graph</field>
+            <field name="model">quintobeer.pedido</field>
+            <field name="arch" type="xml">
+                <graph string="Pedidos por Precio Total" type="bar">
+                    <field name="preciototal" type="measure"/>
+                    <field name="idpedido" type="row"/>
+                </graph>
+            </field>
+        </record>
+
+        <!-- Vista búsqueda -->
+        <record id="quintobeer_pedido_search_view" model="ir.ui.view">
+            <field name="name">quintobeer.pedido.search</field>
+            <field name="model">quintobeer.pedido</field>
+            <field name="arch" type="xml">
+                <search string="Buscar Pedidos">
+                    <field name="idpedido"/>
+                    <field name="estado"/>
+                    <field name="fechapedido"/>
+                    <field name="preciototal"/>
+                    <field name="idenvio"/>
+                    <field name="cliente_id"/>
+                    <field name="idcerveza"/>
+                    <field name="empleado_id"/>
+                </search>
+            </field>
+        </record>
+
+        <!-- Vista filtrado -->
+        <record id="quintobeer_pedido_search_view" model="ir.ui.view">
+            <field name="name">quintobeer.pedido.search</field>
+            <field name="model">quintobeer.pedido</field>
+            <field name="arch" type="xml">
+                <search string="Buscar Pedidos">
+                    <field name="idpedido"/>
+                    <field name="estado"/>
+                    <field name="fechapedido"/>
+                    <field name="preciototal"/>
+                    <field name="idenvio"/>
+                    <field name="cliente_id"/>
+                    <field name="idcerveza"/>
+                    <field name="empleado_id"/>
+                    <filter string="Pendiente" name="pendiente" domain="[('estado','=','pendiente')]"/>
+                    <filter string="Enviado" name="enviado" domain="[('estado','=','enviado')]"/>
+                    <filter string="Recibido" name="recibido" domain="[('estado','=','recibido')]"/>
+                    <filter string="Cancelado" name="cancelado" domain="[('estado','=','cancelado')]"/>
+                    <group expand="1" string="Agrupar por...">
+                        <filter string="Estado" name="group_estado" context="{'group_by':'estado'}"/>
+                        <filter string="Fecha de Pedido" name="group_fechapedido" context="{'group_by':'fechapedido'}"/>
+                        <filter string="Cliente" name="group_cliente" context="{'group_by':'cliente_id'}"/>
+                        <filter string="Empleado" name="group_empleado" context="{'group_by':'empleado_id'}"/>
+                    </group>
+                </search>
+            </field>
+        </record>
+
+
+
+
+
+
+    </data>
+</odoo>

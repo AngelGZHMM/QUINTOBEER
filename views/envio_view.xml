@@ -1,0 +1,140 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Ángel Gallego Zayas -->
+<odoo>
+    <data>
+        <!-- Acción principal -->
+        <record model="ir.actions.act_window" id="act_envio">
+            <field name="name">Envios</field>
+            <field name="res_model">quintobeer.envio</field>
+            <field name="view_mode">calendar,tree,form</field>
+            <field name="context">{}</field> <!-- Contexto para la acción -->
+        </record>
+
+        <!-- Vista de calendario -->
+        <record id="quintobeer_envios_calendar_view" model="ir.ui.view">
+            <field name="name">quintobeer.envio.calendar</field>
+            <field name="model">quintobeer.envio</field>
+            <field name="arch" type="xml">
+                <calendar string="Envios" date_start="fechasalidaenvio" date_stop="fechaentregaenvio" color="empresareparto">
+                    <field name="envio_id"/>
+                    <field name="empresareparto"/>
+                </calendar>
+            </field>
+        </record>
+
+        <!-- Vista de árbol -->
+        <record id="quintobeer_envios_tree_view" model="ir.ui.view">
+            <field name="name">quintobeer.envio.tree</field>
+            <field name="model">quintobeer.envio</field>
+            <field name="arch" type="xml">
+                <tree string="Envios" editable="bottom">
+                    <field name="envio_id"/>
+                    <field name="fechasalidaenvio"/>
+                    <field name="fechaentregaenvio"/>
+                    <field name="empresareparto"/>
+                    <field name="__last_update" invisible="1"/>
+                    <!-- Control de cambios automáticos -->
+                </tree>
+            </field>
+        </record>
+
+        <!-- Vista de formulario -->
+        <record id="quintobeer_envios_form_view" model="ir.ui.view">
+            <field name="name">quintobeer.envio.form</field>
+            <field name="model">quintobeer.envio</field>
+            <field name="arch" type="xml">
+                <form string="Envio">
+                    <!-- Sección Principal -->
+                    <sheet>
+                        <group>
+                            <!-- Grupo para los detalles del envío -->
+                            <group>
+                                <field name="envio_id" readonly="1" string="ID Envío"/>
+                                <field name="empresareparto" string="Empresa de Reparto"/>
+                            </group>
+                            <!-- Grupo para las fechas de envío -->
+                            <group>
+                                <field name="fechasalidaenvio" string="Fecha de Salida" widget="datetime"/>
+                                <field name="fechaentregaenvio" string="Fecha de Entrega Estimada" widget="datetime"/>
+                            </group>
+                        </group>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+
+        <!-- Acción de la vista calendario -->
+        <record id="act_envio_calendar" model="ir.actions.act_window">
+            <field name="name">Envios - Vista Calendario</field>
+            <field name="res_model">quintobeer.envio</field>
+            <field name="view_mode">calendar</field>
+            <field name="view_id" ref="quintobeer_envios_calendar_view"/>
+            <field name="context">{}</field> <!-- Contexto para la acción -->
+        </record>
+
+        <!-- Acción de la vista árbol -->
+        <record id="act_envio_tree" model="ir.actions.act_window">
+            <field name="name">Envios - Vista Lista</field>
+            <field name="res_model">quintobeer.envio</field>
+            <field name="view_mode">tree,form</field>
+            <field name="view_id" ref="quintobeer_envios_tree_view"/>
+            <field name="context">{}</field> <!-- Contexto para la acción -->
+        </record>
+
+        <!-- Vista de búsqueda -->
+        <record id="quintobeer_envios_search_view" model="ir.ui.view">
+            <field name="name">quintobeer.envio.search</field>
+            <field name="model">quintobeer.envio</field>
+            <field name="arch" type="xml">
+                <search string="Buscar Envíos">
+                    <!-- Filtros básicos -->
+                    <field name="envio_id" string="ID Envío"/>
+                    <field name="empresareparto" string="Empresa de Reparto"/>
+                    <field name="fechasalidaenvio" string="Fecha de Salida"/>
+                    <field name="fechaentregaenvio" string="Fecha de Entrega Estimada"/>
+
+                    <!-- Filtros avanzados (opcional) -->
+                    <filter name="filter_pendientes" string="Pendientes" domain="[('fechaentregaenvio', '=', False)]"/>
+                    <filter name="filter_hlc" string="HLC" domain="[('empresareparto', '=', 'hlc')]"/>
+                    <filter name="filter_amazon" string="Amazon" domain="[('empresareparto', '=', 'amazon')]"/>
+                </search>
+            </field>
+        </record>
+
+        <!-- Acción con vista de búsqueda -->
+        <record id="act_envio_tree_search" model="ir.actions.act_window">
+            <field name="name">Envios - Vista de Búsqueda</field>
+            <field name="res_model">quintobeer.envio</field>
+            <field name="view_mode">tree,form</field>
+            <field name="view_id" ref="quintobeer_envios_tree_view"/>
+            <field name="search_view_id" ref="quintobeer_envios_search_view"/>
+        </record>
+
+        <!-- Vista de árbol con opción de agrupación por campo -->
+<record id="quintobeer_envios_tree_view" model="ir.ui.view">
+    <field name="name">quintobeer.envio.tree</field>
+    <field name="model">quintobeer.envio</field>
+    <field name="arch" type="xml">
+        <tree string="Envios" editable="bottom">
+            <field name="envio_id"/>
+            <field name="fechasalidaenvio"/>
+            <field name="fechaentregaenvio"/>
+            <field name="empresareparto"/>
+            <field name="__last_update" invisible="1"/>
+        </tree>
+    </field>
+</record>
+
+
+
+
+
+
+
+        <!-- Menú principal -->
+        <menuitem id="quintobeer_envios_menu" name="Gestión de Envíos" parent="base.menu_custom"/>
+        <menuitem id="quintobeer_envios_submenu" name="Envios" parent="quintobeer_envios_menu" action="act_envio"/>
+        <menuitem id="quintobeer_envios_submenu_calendar" name="Vista Calendario" parent="quintobeer_envios_menu" action="act_envio_calendar"/>
+        <menuitem id="quintobeer_envios_submenu_tree" name="Vista Lista" parent="quintobeer_envios_menu" action="act_envio_tree"/>
+    </data>
+</odoo>

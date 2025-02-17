@@ -1,0 +1,124 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+    <!-- Vista Tree -->
+    <record id="view_cerveza_tree" model="ir.ui.view">
+        <field name="name">quintobeer.cerveza.tree</field>
+        <field name="model">quintobeer.cerveza</field>
+        <field name="arch" type="xml">
+            <tree>
+                <field name="nombre"/>
+                <field name="grados"/>
+                <field name="maduracion"/>
+                <field name="envasado"/>
+                <field name="capacidad"/>
+                <field name="precio_unidad"/>
+                <field name="precio_pack" readonly="1"/>
+                <field name="descripcion"/>
+            </tree>
+        </field>
+    </record>
+
+    <!-- Vista Form -->
+    <record id="view_cerveza_form" model="ir.ui.view">
+    <field name="name">quintobeer.cerveza.form</field>
+    <field name="model">quintobeer.cerveza</field>
+    <field name="arch" type="xml">
+        <form string="Cerveza">
+            <sheet>
+                <!-- Distribución en columnas -->
+                <group col="2">
+                    <group>
+                        <field name="nombre"/>
+                        <field name="grados"/>
+                        <field name="maduracion"/>
+                        <field name="envasado"/>
+                    </group>
+                    <group>
+                        <field name="capacidad"/>
+                        <field name="pack"/>
+                        <field name="precio_unidad"/>
+                        <field name="precio_pack" readonly="1"/>
+                    </group>
+                </group>
+                <!-- Campos restantes en una nueva fila debajo -->
+                <group>
+                    <field name="descripcion"/>
+                    <field name="ingrediente_ids" widget="many2many_tags"/>
+                    <field name="pedido_ids" widget="many2many_tags"/>
+                    <field name="foto" widget="image"/>
+                </group>
+            </sheet>
+        </form>
+    </field>
+</record>
+
+
+    <!-- Vista Kanban -->
+    <record id="view_cerveza_kanban" model="ir.ui.view">
+        <field name="name">quintobeer.cerveza.kanban</field>
+        <field name="model">quintobeer.cerveza</field>
+        <field name="arch" type="xml">
+            <kanban>
+                <field name="foto"/>
+                <field name="nombre"/>
+                <field name="envasado"/>
+                <field name="grados"/>
+                <field name="precio_pack"/>
+                <templates>
+                    <t t-name="kanban-box">
+                        <div class="o_kanban_record oe_kanban_global_click o_quintobeer_cerveza_kanban" t-attf-data-id="{{ record.id }}" style="min-height: 150px; padding: 10px;">
+                            <div class="o_kanban_image_fill_left d-none d-md-block"><field name="foto" class="img img-fluid" widget="image"/>
+                            </div>
+                            <div class="o_kanban_details">
+                                <div>
+                                    <strong><field name="nombre"/></strong>
+                                </div>
+                                <div>
+                                    <span>Tipo de Envasado: <field name="envasado"/></span>
+                                </div>
+                                <div>
+                                    <span>Grados: <field name="grados"/></span>
+                                </div>
+                                <div>
+                                    <span>Precio de Pack: <field name="precio_pack"/></span>
+                                </div>
+                            </div>
+                        </div>
+                    </t>
+                </templates>
+            </kanban>
+        </field>
+    </record>
+
+    <record id="quintobeer_cerveza_search_view" model="ir.ui.view">
+            <field name="name">quintobeer.cerveza.search</field>
+            <field name="model">quintobeer.cerveza</field>
+            <field name="arch" type="xml">
+                <search string="Buscar Cervezas">
+                    <field name="nombre"/>
+                    <field name="grados"/>
+                    <field name="precio_pack"/>
+                    <filter string="Botella" name="botella" domain="[('envasado','=','botella')]"/>
+                    <filter string="Lata" name="lata" domain="[('envasado','=','lata')]"/>
+                    <filter string="Barril" name="barril" domain="[('envasado','=','barril')]"/>
+                    <group expand="1" string="Agrupar por...">
+                        <filter string="Envasado" name="group_envasado" context="{'group_by':'envasado'}"/>
+                        <filter string="Capacidad" name="group_capacidad" context="{'group_by':'capacidad'}"/>
+                        <filter string="Precio Pack" name="group_precio_pack" context="{'group_by':'precio_pack'}"/>
+                        
+                    </group>
+                </search>
+            </field>
+        </record>
+
+
+
+    <!-- Acción para abrir la vista -->
+    <record id="action_cerveza" model="ir.actions.act_window">
+        <field name="name">Cervezas</field>
+        <field name="res_model">quintobeer.cerveza</field>
+        <field name="view_mode">kanban,tree,form</field>
+    </record>
+
+   
+</odoo>

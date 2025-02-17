@@ -1,0 +1,95 @@
+<!-- Sergio Gómez -->
+<odoo>
+<record id="action_empleado" model="ir.actions.act_window">
+        <field name="name">Empleado</field>
+        <field name="res_model">quintobeer.empleado</field>
+        <field name="view_mode">kanban,tree,form</field>
+        <field name="help" type="html">
+            <p>
+                Crea y gestiona los empleados de Quintobeer.
+            </p>
+        </field>
+    </record>
+
+    <record id="view_empleado_tree" model="ir.ui.view">
+        <field name="name">empleado.tree</field>
+        <field name="model">quintobeer.empleado</field>
+        <field name="arch" type="xml">
+            <tree>
+                <field name="name"/>
+                <field name="apellidos"/>
+                <field name="horario_trabajo"/>
+                <field name="zona_trabajo"/>
+                <field name="fecha_contratacion"/>
+                
+            </tree>
+        </field>
+    </record>
+
+<record id="view_empleado_kanban" model="ir.ui.view">
+        <field name="name">quintobeer.empleado.kanban</field>
+        <field name="model">quintobeer.empleado</field>
+        <field name="arch" type="xml">
+            <kanban>
+                <field name="foto"/>
+                <field name="name"/>
+                <field name="apellidos"/>
+                <field name="direccion"/>
+                <field name="telefono"/>
+                <field name="email"/>
+                <templates>
+                    <t t-name="kanban-box">
+                        <div class="o_kanban_record oe_kanban_global_click o_quintobeer_empleado_kanban" t-attf-data-id="{{ record.id }}" style="min-height: 150px; padding: 10px;">
+                            <div class="o_kanban_image_fill_left d-none d-md-block"><field name="foto" class="img img-fluid" widget="image"/>
+                            </div>
+                            <div class="o_kanban_details">
+                                <div>
+                                    <strong><field name="name"/></strong>
+                                </div>
+                                <div>
+                                    <span>apellidos: <field name="apellidos"/></span>
+                                </div>
+                                <div>
+                                    <span>fecha contratacion: <field name="fecha_contratacion"/></span>
+                                </div>
+                                <div>
+                                    <span>telefono: <field name="telefono"/></span>
+                                </div>
+                                <div>
+                                    <span>email: <field name="email"/></span>
+                                </div>
+                            </div>
+                        </div>
+                    </t>
+                </templates>
+            </kanban>
+        </field>
+    </record>
+
+    <record id="view_empleado_form" model="ir.ui.view">
+        <field name="name">empleado.form</field>
+        <field name="model">quintobeer.empleado</field>
+        <field name="arch" type="xml">
+            <form>
+                <sheet>
+                    <group>
+                        <field name="name"/>
+                        <field name="apellidos"/>
+                        <field name="email"/>
+                        <field name="telefono"/>
+                        <field name="direccion"/>
+                        <field name="fecha_nac"/>
+                        <field name="dni"/>
+                        <field name="horario_trabajo"/>
+                        <field name="zona_trabajo"/>
+                        <field name="fecha_contratacion"/>
+                        <field name="pedidos_ids"/>
+                        <field name="foto" widget="image"/>
+
+                        <!--<field name="pedidos_ids"/>-->
+                    </group>
+                </sheet>
+            </form>
+        </field>
+    </record>
+</odoo>

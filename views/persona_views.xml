@@ -1,0 +1,45 @@
+<odoo>
+    <record id="view_persona_form" model="ir.ui.view">
+        <field name="name">persona.form</field>
+        <field name="model">quintobeer.persona</field>
+        <field name="arch" type="xml">
+            <form>
+                <sheet>
+                    <group>
+                        <field name="name"/>
+                        <field name="apellidos"/>
+                        <field name="email"/>
+                        <field name="telefono"/>
+                        <field name="direccion"/>
+                        <field name="fecha_nac"/>
+                        <field name="dni"/>
+                        <field name="foto" widget="image"/>
+                    </group>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <record id="view_persona_tree" model="ir.ui.view">
+        <field name="name">persona.tree</field>
+        <field name="model">quintobeer.persona</field>
+        <field name="arch" type="xml">
+            <tree>
+                <field name="name"/>
+                <field name="apellidos"/>
+                <field name="email"/>
+                <field name="telefono"/>
+            </tree>
+        </field>
+    </record>
+<record id="action_persona" model="ir.actions.act_window">
+        <field name="name">Personas</field>
+        <field name="res_model">quintobeer.persona</field>
+        <field name="view_mode">tree,form</field>
+        <field name="help" type="html">
+            <p>
+                Crea y gestiona las personas de Quintobeer.
+            </p>
+        </field>
+    </record>
+</odoo>

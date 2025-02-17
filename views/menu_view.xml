@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+    <data>
+        <menuitem id="quintobeer.main_quintobeer_menu" name="Quintobeer"/>
+        <menuitem id="quintobeer.pedido_menu" name="Pedidos" parent="quintobeer.main_quintobeer_menu"/>
+        <menuitem id="quintobeer.pedido2_menu" name="Gestionar pedidos" parent="quintobeer.pedido_menu" action="act_pedido"/>
+
+    </data>
+</odoo>

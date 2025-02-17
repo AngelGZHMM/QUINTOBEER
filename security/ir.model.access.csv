@@ -1,0 +1,11 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+access_quintobeer_pedido,quintobeer.pedido,model_quintobeer_pedido,base.group_user,1,1,1,1
+
+access_quintobeer_envio,quintobeer.envio,model_quintobeer_envio,base.group_user,1,1,1,1
+access_cliente,access.cliente,model_quintobeer_cliente,,1,1,1,1
+access_empleado,access.empleado,model_quintobeer_empleado,,1,1,1,1
+
+access_quintobeer_ingrediente,quintobeer.ingrediente,model_quintobeer_ingrediente,base.group_user,1,1,1,1
+access_quintobeer_cerveza,quintobeer.cerveza,model_quintobeer_cerveza,base.group_user,1,1,1,1
+
+
